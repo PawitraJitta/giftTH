@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Thailand With Love 🌿</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&family=Noto+Serif+Thai:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage:#7a9e7e;--sage-light:#a8c5a0;--sage-deep:#4a7550;
+    --ivory:#faf8f3;--bark:#6b5740;--bark-light:#9a8070;--moss:#3d5c3f;
+    --gold:#c9a84c;--indigo:#2d3a6b;--text:#2c2c2c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--ivory);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+  .bg-texture{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at 20% 20%,rgba(122,158,126,.12) 0%,transparent 60%),
+      radial-gradient(ellipse at 80% 80%,rgba(201,168,76,.07) 0%,transparent 50%),
+      radial-gradient(ellipse at 60% 10%,rgba(168,197,160,.1) 0%,transparent 40%);}
+  .leaf-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  .leaf-bg::before{content:'';position:absolute;top:-10%;right:-5%;width:45vw;height:45vw;
+    background:radial-gradient(circle,rgba(122,158,126,.08) 0%,transparent 70%);
+    border-radius:60% 40% 70% 30%/30% 60% 40% 70%;animation:breathe 8s ease-in-out infinite;}
+  .leaf-bg::after{content:'';position:absolute;bottom:-5%;left:-8%;width:40vw;height:40vw;
+    background:radial-gradient(circle,rgba(74,117,80,.07) 0%,transparent 70%);
+    border-radius:40% 60% 30% 70%/70% 30% 60% 40%;animation:breathe 10s ease-in-out infinite reverse;}
+  @keyframes breathe{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.05) rotate(3deg)}}
+  @keyframes floatIcon{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  .page{display:none;position:relative;z-index:1;min-height:100vh;}
+  .page.active{display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  #page-home{padding:56px 24px 80px;text-align:center;}
+  .home-icon{font-size:3rem;margin-bottom:24px;display:block;animation:floatIcon 4s ease-in-out infinite;}
+  .home-eyebrow{font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--sage);margin-bottom:14px;opacity:0;animation:fadeUp .8s .2s forwards;}
+  .home-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,8vw,4.8rem);font-weight:300;line-height:1.1;color:var(--moss);margin-bottom:8px;opacity:0;animation:fadeUp .8s .4s forwards;}
+  .home-title em{font-style:italic;color:var(--gold);}
+  .home-sub{font-family:'Noto Serif Thai',serif;font-size:1rem;color:var(--bark-light);margin-bottom:36px;opacity:0;animation:fadeUp .8s .6s forwards;}
+  .divider{display:flex;align-items:center;gap:12px;margin:0 auto 32px;width:fit-content;opacity:0;animation:fadeUp .8s .7s forwards;}
+  .divider .line{width:40px;height:1px;background:var(--sage-light);}
+  .section-label{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--bark-light);margin-bottom:14px;opacity:0;animation:fadeUp .8s .78s forwards;}
+  .gift-cards{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:680px;margin-bottom:20px;opacity:0;animation:fadeUp .8s .88s forwards;}
+  .gift-card{background:rgba(255,255,255,.72);backdrop-filter:blur(12px);border:1px solid rgba(122,158,126,.22);border-radius:20px;padding:18px 20px;cursor:pointer;text-align:center;width:150px;transition:all .3s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;}
+  .gift-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(122,158,126,.1),rgba(201,168,76,.05));opacity:0;transition:opacity .3s;border-radius:20px;}
+  .gift-card:hover{transform:translateY(-6px) scale(1.03);border-color:var(--sage);box-shadow:0 20px 40px rgba(74,117,80,.14);}
+  .gift-card:hover::before{opacity:1;}
+  .gift-card .emoji{font-size:2rem;margin-bottom:7px;display:block;}
+  .gift-card .name{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--moss);font-weight:400;line-height:1.2;}
+  .gift-card .tag{display:inline-block;margin-top:6px;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:var(--sage);background:rgba(122,158,126,.1);padding:2px 8px;border-radius:20px;}
+  .indigo-card{border-color:rgba(45,58,107,.18)!important;}
+  .indigo-card:hover{border-color:rgba(45,58,107,.45)!important;box-shadow:0 20px 40px rgba(45,58,107,.1)!important;}
+  #page-gift{padding:40px 24px 64px;max-width:500px;margin:0 auto;width:100%;}
+  .back-btn{align-self:flex-start;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);padding:8px 0;margin-bottom:28px;transition:all .2s;opacity:0;animation:fadeUp .6s .1s forwards;}
+  .back-btn:hover{color:var(--moss);transform:translateX(-3px);}
+  .gift-hero{text-align:center;margin-bottom:32px;opacity:0;animation:fadeUp .7s .2s forwards;}
+  .gift-big-emoji{font-size:5rem;display:block;margin-bottom:16px;cursor:pointer;animation:floatIcon 4s ease-in-out infinite;transition:transform .15s;}
+  .gift-big-emoji:active{transform:scale(.84) rotate(-7deg);}
+  .gift-tap-hint{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage-light);margin-bottom:14px;}
+  .gift-title-en{font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:300;color:var(--moss);line-height:1.1;}
+  .gift-title-th{font-family:'Noto Serif Thai',serif;font-size:1rem;color:var(--bark-light);margin-top:4px;}
+  .gift-origin{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--sage);}
+  .gift-origin .dot{width:3px;height:3px;background:var(--sage-light);border-radius:50%;}
+  .story-card{background:rgba(255,255,255,.65);backdrop-filter:blur(16px);border:1px solid rgba(122,158,126,.2);border-radius:22px;padding:26px;margin-bottom:16px;opacity:0;animation:fadeUp .7s .35s forwards;}
+  .story-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);margin-bottom:11px;display:flex;align-items:center;gap:8px;}
+  .story-label::after{content:'';flex:1;height:1px;background:rgba(122,158,126,.22);}
+  .story-text{font-family:'Cormorant Garamond',serif;font-size:1.12rem;line-height:1.8;color:var(--text);font-weight:300;}
+  .story-text em{color:var(--sage-deep);font-style:italic;}
+  .meaning-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+  .pill{background:rgba(122,158,126,.1);border:1px solid rgba(122,158,126,.22);border-radius:50px;padding:4px 13px;font-size:.72rem;color:var(--sage-deep);}
+  .indigo-pill{background:rgba(45,58,107,.07)!important;border-color:rgba(45,58,107,.2)!important;color:var(--indigo)!important;}
+  .thank-card{background:linear-gradient(135deg,rgba(74,117,80,.08),rgba(201,168,76,.05));border:1px solid rgba(122,158,126,.22);border-radius:22px;padding:26px;text-align:center;margin-bottom:16px;opacity:0;animation:fadeUp .7s .5s forwards;}
+  .thank-icon{font-size:1.9rem;margin-bottom:10px;display:block;}
+  .thank-text{font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:1.75;color:var(--bark);font-style:italic;}
+  .thank-sig{margin-top:14px;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);}
+  .secret-hint{text-align:center;font-size:.62rem;color:transparent;margin-top:6px;transition:color .4s;opacity:0;animation:fadeUp .7s .7s forwards;}
+  .secret-hint.visible{color:var(--sage-light);}
+  .confetti-piece{position:fixed;opacity:0;border-radius:2px;z-index:9999;pointer-events:none;animation:confettiFall var(--dur) var(--delay) ease-in forwards;}
+  @keyframes confettiFall{0%{opacity:1;transform:translateY(-20px) rotate(0deg);top:var(--top);left:var(--left)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+  .music-float{position:fixed;z-index:100;pointer-events:none;font-size:1.1rem;opacity:0;animation:musicFloat 3s ease-out forwards;}
+  @keyframes musicFloat{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-75px) translateX(18px)}}
+  .music-btn{position:fixed;bottom:22px;right:22px;z-index:200;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);border:1px solid rgba(122,158,126,.28);border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .3s;box-shadow:0 4px 14px rgba(0,0,0,.07);}
+  .music-btn:hover{transform:scale(1.1);border-color:var(--sage);}
+  .music-btn.playing{border-color:var(--sage);background:rgba(122,158,126,.14);}
+  /* voice indicator pill that fades in on gift page */
+  .voice-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(122,158,126,.08);border:1px solid rgba(122,158,126,.2);border-radius:50px;padding:3px 11px;font-size:.62rem;color:var(--sage-deep);margin-top:8px;letter-spacing:.05em;opacity:0;animation:fadeUp .7s .65s forwards;}
+</style>
+</head>
+<body>
+<div class="bg-texture"></div>
+<div class="leaf-bg"></div>
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+<div class="page active" id="page-home">
+  <span class="home-icon">🌿</span>
+  <p class="home-eyebrow">From Thailand With Love</p>
+  <h1 class="home-title">A little piece<br>of <em>home</em></h1>
+  <p class="home-sub">จากประเทศไทย ด้วยความรัก</p>
+  <div class="divider"><span class="line"></span><span>✦</span><span class="line"></span></div>
+  <p class="section-label">Scan to discover your gift · แสกนเพื่อค้นพบ</p>
+  <div class="gift-cards">
+    <div class="gift-card" onclick="showGift('handcream')">
+      <span class="emoji">🌸</span><div class="name">Hand Cream</div><div class="tag">Karmakamet</div>
+    </div>
+    <div class="gift-card" onclick="showGift('sachet')">
+      <span class="emoji">🫧</span><div class="name">Scented Sachet</div><div class="tag">Karmakamet</div>
+    </div>
+    <div class="gift-card indigo-card" onclick="showGift('elephantbag')">
+      <span class="emoji">🐘</span><div class="name">Elephant Coin Bag</div><div class="tag">Handmade</div>
+    </div>
+    <div class="gift-card indigo-card" onclick="showGift('keychain')">
+      <span class="emoji">🔑</span><div class="name">Indigo Elephant Keychain</div><div class="tag">Mud-dyed</div>
+    </div>
+    <div class="gift-card indigo-card" onclick="showGift('earrings')">
+      <span class="emoji">💠</span><div class="name">Bell Flower Earrings</div><div class="tag">Indigo Fabric</div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-gift">
+  <button class="back-btn" onclick="goBack()">← Back</button>
+  <div class="gift-hero">
+    <span class="gift-big-emoji" id="giftEmoji" onclick="easterEggTap(this)">🌸</span>
+    <p class="gift-tap-hint">tap me · แตะที่รูปนี้ 🤫</p>
+    <h2 class="gift-title-en" id="giftTitleEn"></h2>
+    <p class="gift-title-th" id="giftTitleTh"></p>
+    <div class="gift-origin"><span>🇹🇭 Made in Thailand</span><span class="dot"></span><span id="giftRegion"></span></div>
+    <span class="voice-pill" id="voicePill"></span>
+  </div>
+  <div class="story-card">
+    <p class="story-label">The story behind it</p>
+    <p class="story-text" id="giftStory"></p>
+    <div class="meaning-pills" id="giftPills"></div>
+  </div>
+  <div class="thank-card">
+    <span class="thank-icon">🌏</span>
+    <p class="thank-text" id="giftThank"></p>
+    <p class="thank-sig">— with gratitude, from Thailand 🇹🇭</p>
+  </div>
+  <p class="secret-hint" id="secretHint">✦ something is hidden here ✦</p>
+</div>
+
+<script>
+// ── SHARED AUDIO ENGINE ──────────────────────────────────────────
+// Each "voice" is defined by: scale (Hz), pad type, bell intervals, and timbre
+// Call: AudioEngine.start(voiceKey) / AudioEngine.stop()
+
+const AudioEngine = (() => {
+  let ctx = null, masterGain = null, nodes = [], bellTimer = null, playing = false;
+
+  const VOICES = {
+    // 🌸🫧 Karmakamet — high pentatonic, delicate, spa
+    spa: {
+      padFreqs: [261.6, 329.6, 392, 493.9, 587.3, 659.3],
+      padType: 'sine',
+      padGain: 0.032,
+      padDetune: 4,
+      lfoRate: 0.07,
+      filterFreq: 900,
+      bellFreqs: [783.9, 1046.5, 1174.7, 1318.5, 1567.9],
+      bellGain: 0.05,
+      bellDecay: 3.2,
+      bellInterval: [2800, 1800],
+    },
+    // 🐘 Elephant — low drone, slow, majestic
+    elephant: {
+      padFreqs: [98, 130.8, 146.8, 196, 220, 261.6],
+      padType: 'triangle',
+      padGain: 0.045,
+      padDetune: 6,
+      lfoRate: 0.04,
+      filterFreq: 420,
+      bellFreqs: [261.6, 329.6, 392, 220],
+      bellGain: 0.07,
+      bellDecay: 4.5,
+      bellInterval: [4500, 3000],
+    },
+    // 🔑💠 Indigo / Isan — khaen-like pentatonic, NE Thailand flavour
+    isan: {
+      padFreqs: [220, 247, 293.7, 370, 415, 440],
+      padType: 'sawtooth', // brighter, reed-like
+      padGain: 0.022,
+      padDetune: 3,
+      lfoRate: 0.11,
+      filterFreq: 700,
+      bellFreqs: [440, 493.9, 587.3, 659.3, 740],
+      bellGain: 0.055,
+      bellDecay: 1.8,
+      bellInterval: [1800, 1200],
+    },
+    // 👑 Shannon — Thai classical, warm, feminine high register
+    shannon: {
+      padFreqs: [293.7, 370, 440, 554.4, 659.3, 740],
+      padType: 'sine',
+      padGain: 0.03,
+      padDetune: 3,
+      lfoRate: 0.06,
+      filterFreq: 1100,
+      bellFreqs: [880, 1108.7, 1318.5, 1480, 1760],
+      bellGain: 0.048,
+      bellDecay: 3.8,
+      bellInterval: [2400, 1600],
+    },
+    // 👑 Marco — deep forest, bass-forward, mysterious
+    marco: {
+      padFreqs: [65.4, 87.3, 98, 130.8, 164.8, 196],
+      padType: 'triangle',
+      padGain: 0.05,
+      padDetune: 7,
+      lfoRate: 0.035,
+      filterFreq: 340,
+      bellFreqs: [196, 261.6, 329.6, 392, 246.9],
+      bellGain: 0.065,
+      bellDecay: 5.5,
+      bellInterval: [5500, 3500],
+    },
+  };
+
+  function init() {
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = ctx.createGain();
+    masterGain.gain.setValueAtTime(0, ctx.currentTime);
+    masterGain.connect(ctx.destination);
+  }
+
+  function buildPads(v) {
+    v.padFreqs.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      osc.type = v.padType;
+      osc.frequency.value = freq;
+      osc.detune.value = (Math.random() - 0.5) * v.padDetune * 2;
+
+      gain.gain.value = v.padGain * (0.7 + Math.random() * 0.6);
+      filter.type = 'lowpass';
+      filter.frequency.value = v.filterFreq + i * 40;
+      filter.Q.value = v.padType === 'sawtooth' ? 3.5 : 0.6;
+
+      const lfo = ctx.createOscillator();
+      const lfoGain = ctx.createGain();
+      lfo.frequency.value = v.lfoRate + Math.random() * 0.04;
+      lfoGain.gain.value = v.padGain * 0.35;
+      lfo.connect(lfoGain);
+      lfoGain.connect(gain.gain);
+      lfo.start();
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(masterGain);
+      osc.start();
+
+      nodes.push(osc, lfo);
+    });
+  }
+
+  function scheduleBell(v) {
+    if (!playing) return;
+    const freq = v.bellFreqs[Math.floor(Math.random() * v.bellFreqs.length)];
+    const osc = ctx.createOscillator();
+    const env = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    filter.type = 'bandpass';
+    filter.frequency.value = freq;
+    filter.Q.value = v.padType === 'sawtooth' ? 6 : 2;
+
+    env.gain.setValueAtTime(0, ctx.currentTime);
+    env.gain.linearRampToValueAtTime(v.bellGain, ctx.currentTime + 0.012);
+    env.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + v.bellDecay);
+
+    osc.connect(filter);
+    filter.connect(env);
+    env.connect(masterGain);
+    osc.start();
+    osc.stop(ctx.currentTime + v.bellDecay + 0.1);
+
+    spawnNote();
+
+    const next = v.bellInterval[1] + Math.random() * (v.bellInterval[0] - v.bellInterval[1]);
+    bellTimer = setTimeout(() => scheduleBell(v), next);
+  }
+
+  function spawnNote() {
+    const el = document.createElement('div');
+    el.className = 'music-float';
+    el.textContent = ['♪', '♫', '♩', '🎵'][Math.floor(Math.random() * 4)];
+    el.style.left = (65 + Math.random() * 20) + 'vw';
+    el.style.bottom = '58px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3100);
+  }
+
+  return {
+    start(voiceKey) {
+      init();
+      if (ctx.state === 'suspended') ctx.resume();
+      const v = VOICES[voiceKey] || VOICES.spa;
+      playing = true;
+      buildPads(v);
+      masterGain.gain.setValueAtTime(0, ctx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0.9, ctx.currentTime + 2.5);
+      scheduleBell(v);
+    },
+    stop() {
+      if (!ctx) return;
+      playing = false;
+      clearTimeout(bellTimer);
+      masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.8);
+      setTimeout(() => {
+        nodes.forEach(n => { try { n.stop(); } catch(e){} });
+        nodes = [];
+        ctx.suspend();
+      }, 2000);
+    },
+    isPlaying() { return playing; }
+  };
+})();
+
+const GIFTS = {
+  handcream:{
+    emoji:'🌸',titleEn:'Karmakamet Hand Cream',titleTh:'ครีมบำรุงมือ Karmakamet',region:'Bangkok',
+    voice:'spa',voiceLabel:'🎵 Pentatonic Spa',indigo:false,
+    story:'<em>Karmakamet</em> was born in Bangkok from a deep reverence for natural botanicals — long before "clean beauty" was a trend. Each formula draws on <em>traditional Asian aromatherapy</em>, blending herbs, flowers, and roots used in Thai healing traditions for centuries. The name comes from Sanskrit: karma (action) + kamet (desire) — a fragrance philosophy rooted in intention.',
+    pills:['Thai botanicals','Aromatherapy heritage','Bangkok artisan brand'],
+    thank:'Every time you use this, let the scent be a little moment of pause — just like this offsite gave us a pause from the everyday. Thank you for being part of this trip and this team. Thailand sends its warmth to your hands.'
+  },
+  sachet:{
+    emoji:'🫧',titleEn:'Karmakamet Scented Sachet',titleTh:'ถุงหอม Karmakamet',region:'Bangkok',
+    voice:'spa',voiceLabel:'🎵 Pentatonic Spa',indigo:false,
+    story:'In Thailand, fragrance is sacred. Jasmine garlands are offered to Buddha, lemongrass woven into welcoming rituals, and aromatic herbs have scented Thai homes for generations. <em>Karmakamet</em> reimagines this tradition — each sachet is a tiny time capsule of <em>Thai botanical memory</em>, designed to linger quietly in your space and your mind.',
+    pills:['Traditional scent ritual','Thai botanical roots','Long-lasting fragrance'],
+    thank:'Place this somewhere you spend quiet moments — a drawer, a bag, a desk. Let it carry a little of Thailand into your everyday. Thank you for this trip and for everything you bring to our team.'
+  },
+  elephantbag:{
+    emoji:'🐘',titleEn:'Elephant Coin Bag',titleTh:'กระเป๋าตังค์ช้างน้อย',region:'Chiang Mai',
+    voice:'elephant',voiceLabel:'🥁 Deep Drum & Bell',indigo:false,
+    story:'In Thailand, the <em>elephant is a symbol of wisdom, luck, and protection</em> — once the royal emblem of the kingdom itself. This tiny coin bag is hand-stitched in Chiang Mai from natural cotton fabric, with an appliquéd elephant crafted from reclaimed textile scraps. <em>No two are identical</em> — each has its own character, just like the craftsperson who made it.',
+    pills:['Hand-stitched','Symbol of good luck','No two alike','Chiang Mai origin'],
+    thank:'May this little elephant bring you as much luck as this trip brought us together. Thank you for joining us — your energy made it special. Keep something precious inside. 🐘'
+  },
+  keychain:{
+    emoji:'🔑',titleEn:'Indigo Elephant Keychain',titleTh:'พวงกุญแจผ้าย้อมคราม',region:'Nakhon Phanom',
+    voice:'isan',voiceLabel:'🪗 Isan Folk (แคน)',indigo:true,
+    story:'<em>Indigo dyeing (ย้อมคราม)</em> is one of Thailand\'s most ancient textile crafts, passed down through generations in the northeast — especially Nakhon Phanom. The deep blue comes entirely from <em>natural indigo plants</em>, fermented in clay pots. Each dip adds a layer; 10–15 dips create this rich, living color that deepens beautifully with wear.',
+    pills:['100% natural dye','Nakhon Phanom craft','10–15 dye layers','Gets more beautiful over time'],
+    thank:'This keychain will travel with you every day — and the indigo will deepen over time, becoming more uniquely yours. That\'s the magic of natural craft. Thank you for being part of this journey with us. 💙'
+  },
+  earrings:{
+    emoji:'💠',titleEn:'Bell Flower Earrings',titleTh:'ต่างหูดอกแก้วผ้าย้อมคราม',region:'Nakhon Phanom',
+    voice:'isan',voiceLabel:'🪗 Isan Folk (แคน)',indigo:true,
+    story:'Shaped like the <em>ดอกแก้ว (Wrightia religiosa)</em> — a flower considered sacred in Thai Buddhism, planted at temples for its pure white blossoms and gentle fragrance — these earrings are handcrafted from <em>indigo-dyed fabric</em> using Thailand\'s traditional natural dyeing technique. The craft keeps alive a textile heritage that once dressed royalty and monks alike.',
+    pills:['Sacred flower motif','Natural indigo fabric','Temple flower symbolism','Handmade in NE Thailand'],
+    thank:'Wear these and carry a piece of Thai temple gardens with you. The ดอกแก้ว symbolises purity and quiet beauty — qualities we\'re grateful to have in our team. Thank you for being on this trip with us. 🌸'
+  }
+};
+
+let currentVoice = null, tapCount = 0, tapTimer = null;
+
+function toggleMusic(){
+  const btn = document.getElementById('musicBtn');
+  if(AudioEngine.isPlaying()){
+    AudioEngine.stop(); btn.textContent='🎵'; btn.classList.remove('playing');
+  } else {
+    AudioEngine.start(currentVoice || 'spa');
+    btn.textContent='🎶'; btn.classList.add('playing');
+  }
+}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goBack(){
+  // stop current voice, back to home (no music on home)
+  if(AudioEngine.isPlaying()){ AudioEngine.stop(); document.getElementById('musicBtn').textContent='🎵'; document.getElementById('musicBtn').classList.remove('playing'); }
+  currentVoice = null;
+  showPage('page-home');
+}
+
+function showGift(key){
+  tapCount=0;
+  const d=GIFTS[key]; if(!d)return;
+  document.getElementById('giftEmoji').textContent=d.emoji;
+  document.getElementById('giftTitleEn').textContent=d.titleEn;
+  document.getElementById('giftTitleTh').textContent=d.titleTh;
+  document.getElementById('giftRegion').textContent=d.region;
+  document.getElementById('giftStory').innerHTML=d.story;
+  document.getElementById('giftThank').textContent=d.thank;
+  document.getElementById('secretHint').classList.remove('visible');
+  document.getElementById('voicePill').textContent=d.voiceLabel;
+  document.getElementById('giftPills').innerHTML=d.pills.map(p=>'<span class="pill'+(d.indigo?' indigo-pill':'')+'">'+p+'</span>').join('');
+
+  // switch music to this gift's voice
+  if(AudioEngine.isPlaying()) AudioEngine.stop();
+  currentVoice = d.voice;
+  setTimeout(()=>{ AudioEngine.start(d.voice); document.getElementById('musicBtn').textContent='🎶'; document.getElementById('musicBtn').classList.add('playing'); }, 300);
+
+  showPage('page-gift');
+}
+
+function easterEggTap(el){
+  tapCount++;
+  el.style.transform='scale(.82) rotate(-8deg)';setTimeout(()=>el.style.transform='',160);
+  const h=document.getElementById('secretHint');
+  if(tapCount>=3)h.classList.add('visible');
+  if(tapCount>=5){tapCount=0;h.classList.remove('visible');fireConfetti();showToast('🎉 สวัสดีจากประเทศไทย! You found the secret 🙏');}
+  clearTimeout(tapTimer);tapTimer=setTimeout(()=>tapCount=0,2600);
+}
+
+function fireConfetti(){
+  const colors=['#7a9e7e','#a8c5a0','#4a7550','#c9a84c','#f5f0e8','#2d3a6b'];
+  for(let i=0;i<65;i++){
+    const p=document.createElement('div');p.className='confetti-piece';
+    p.style.setProperty('--dur',(1.5+Math.random()*1.6)+'s');
+    p.style.setProperty('--delay',(Math.random()*.9)+'s');
+    p.style.setProperty('--top','-20px');p.style.setProperty('--left',(8+Math.random()*84)+'%');
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.width=(5+Math.random()*7)+'px';p.style.height=(5+Math.random()*10)+'px';
+    p.style.borderRadius=Math.random()>.5?'50%':'2px';
+    document.body.appendChild(p);setTimeout(()=>p.remove(),3600);
+  }
+}
+
+function showToast(msg){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:86px;left:50%;transform:translateX(-50%);background:rgba(74,117,80,.94);color:white;padding:12px 22px;border-radius:50px;font-family:\'DM Sans\',sans-serif;font-size:.78rem;letter-spacing:.1em;z-index:9999;text-align:center;box-shadow:0 8px 22px rgba(74,117,80,.28);white-space:nowrap;';
+  t.textContent=msg;document.body.appendChild(t);
+  setTimeout(()=>{t.style.transition='opacity .5s';t.style.opacity='0';setTimeout(()=>t.remove(),520);},3200);
+}
+</script>
+</body>
+</html>

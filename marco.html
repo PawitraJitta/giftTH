@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Marco 🌿</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&family=Noto+Serif+Thai:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root{--sage:#7a9e7e;--sage-light:#a8c5a0;--sage-deep:#4a7550;--ivory:#faf8f3;--bark:#6b5740;--bark-light:#9a8070;--moss:#3d5c3f;--gold:#c9a84c;--navy:#1e2d40;--navy-light:#2e4460;--text:#2c2c2c;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--ivory);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes crownPulse{0%,100%{filter:drop-shadow(0 0 0px rgba(201,168,76,0))}50%{filter:drop-shadow(0 0 24px rgba(201,168,76,.6))}}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+  @keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at 20% 15%,rgba(30,45,64,.1) 0%,transparent 55%),
+      radial-gradient(ellipse at 80% 85%,rgba(201,168,76,.1) 0%,transparent 50%),
+      radial-gradient(ellipse at 55% 5%,rgba(122,158,126,.09) 0%,transparent 45%),
+      linear-gradient(165deg,#faf8f3 0%,#f2ede4 100%);}
+  .forest{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  .forest::before{content:'';position:absolute;top:-10%;right:-5%;width:52vw;height:52vw;background:radial-gradient(circle,rgba(30,45,64,.08) 0%,transparent 65%);border-radius:55% 45% 60% 40%/40% 60% 45% 55%;animation:breathe 10s ease-in-out infinite;}
+  .forest::after{content:'';position:absolute;bottom:-8%;left:-5%;width:44vw;height:44vw;background:radial-gradient(circle,rgba(74,117,80,.08) 0%,transparent 65%);border-radius:40% 60% 35% 65%/65% 35% 60% 40%;animation:breathe 13s ease-in-out infinite reverse;}
+  .wrap{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:54px 26px 70px;display:flex;flex-direction:column;align-items:center;}
+  .crown{font-size:3.4rem;display:block;margin-bottom:18px;opacity:0;animation:fadeUp .7s .1s forwards,crownPulse 3s 1.2s ease-in-out infinite;}
+  .for-label{font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;opacity:0;animation:fadeUp .6s .3s forwards;}
+  .boss-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,12vw,5.5rem);font-weight:300;line-height:1.0;color:transparent;background:linear-gradient(120deg,var(--navy) 0%,var(--gold) 45%,var(--moss) 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;animation:fadeUp .9s .5s forwards,shimmer 5s 1.5s linear infinite;opacity:0;text-align:center;margin-bottom:6px;}
+  .boss-sub{font-family:'Noto Serif Thai',serif;font-size:1rem;color:var(--bark-light);text-align:center;margin-bottom:10px;opacity:0;animation:fadeUp .6s .75s forwards;}
+  .boss-role{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);margin-bottom:34px;opacity:0;animation:fadeUp .6s .9s forwards;}
+  .reveal-btn{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:white;border:none;border-radius:50px;padding:14px 38px;font-family:'DM Sans',sans-serif;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);margin-bottom:38px;box-shadow:0 8px 24px rgba(30,45,64,.22);opacity:0;animation:fadeUp .6s 1.05s forwards;}
+  .reveal-btn:hover{transform:translateY(-3px) scale(1.04);}
+  .reveal-btn:active{transform:scale(.97);}
+  .content-area{width:100%;}
+  .letter-card{background:rgba(255,255,255,.78);backdrop-filter:blur(20px);border:1px solid rgba(30,45,64,.15);border-radius:28px;padding:32px;margin-bottom:14px;display:none;opacity:0;animation:revealCard .85s forwards;}
+  .letter-card.shown{display:block;}
+  @keyframes revealCard{0%{opacity:0;transform:translateY(28px) scale(.96)}65%{transform:translateY(-3px) scale(1.01)}100%{opacity:1;transform:translateY(0) scale(1)}}
+  .letter-eyebrow{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .letter-eyebrow::after{content:'';flex:1;height:1px;background:rgba(30,45,64,.15);}
+  .letter-body{font-family:'Cormorant Garamond',serif;font-size:1.15rem;line-height:1.85;color:var(--text);font-weight:300;}
+  .letter-body em{color:var(--sage-deep);font-style:italic;}
+  .letter-body strong{color:var(--navy);font-weight:400;}
+  .gift-card-reveal{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(30,45,64,.06));border:1px solid rgba(201,168,76,.3);border-radius:22px;padding:26px;text-align:center;display:none;margin-bottom:14px;}
+  .gift-card-reveal.shown{display:block;opacity:0;animation:revealCard .85s .25s forwards;}
+  .gift-emoji-big{font-size:3rem;display:block;margin-bottom:12px;}
+  .gift-sublabel{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .gift-main-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:var(--moss);margin-bottom:10px;line-height:1.2;}
+  .gift-desc{font-size:.85rem;color:var(--bark-light);line-height:1.7;}
+  .gift-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(30,45,64,.07);border:1px solid rgba(30,45,64,.15);border-radius:50px;padding:4px 12px;font-size:.65rem;color:var(--navy-light);margin-top:12px;}
+  .sig{text-align:center;margin-top:20px;font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);display:none;opacity:0;animation:fadeUp .6s .8s forwards;}
+  .sig.shown{display:block;}
+  .confetti-piece{position:fixed;opacity:0;border-radius:2px;z-index:9999;pointer-events:none;animation:fall var(--dur) var(--delay) ease-in forwards;}
+  @keyframes fall{0%{opacity:1;transform:translateY(-20px) rotate(0deg);top:var(--top);left:var(--left)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+  .music-float{position:fixed;z-index:100;pointer-events:none;font-size:1.1rem;opacity:0;animation:mf 3s ease-out forwards;}
+  @keyframes mf{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-75px) translateX(18px)}}
+  .music-btn{position:fixed;bottom:22px;right:22px;z-index:200;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);border:1px solid rgba(30,45,64,.22);border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .3s;box-shadow:0 4px 14px rgba(0,0,0,.07);}
+  .music-btn:hover{transform:scale(1.1);}
+  .music-btn.playing{border-color:var(--gold);background:rgba(201,168,76,.12);}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="forest"></div>
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</button>
+<div class="wrap">
+  <span class="crown">🌿</span>
+  <p class="for-label">This gift was made for</p>
+  <h1 class="boss-name">Marco</h1>
+  <p class="boss-sub">จากใจ ด้วยความขอบคุณ</p>
+  <p class="boss-role">Big Boss · Syngenta Thailand Offsite</p>
+  <button class="reveal-btn" id="revealBtn" onclick="reveal()">✦ &nbsp;Open your gift&nbsp; ✦</button>
+  <div class="content-area">
+    <div class="letter-card" id="letter">
+      <p class="letter-eyebrow">A note for you</p>
+      <p class="letter-body">
+        Dear <em>Marco</em>,<br><br>
+        I wanted to give you something that couldn't be found in any hotel gift shop — something with a real story and a real place behind it. This silk comes from <strong>Buriram</strong>, the province where I grew up in northeastern Thailand. The weavers there still raise silkworms by hand, ferment their own natural dyes from plants, and sit at wooden looms to create something that takes days to finish.<br><br>
+        The elephant woven into the pattern holds deep meaning in Thai culture — <em>it stands for memory, strength, and the wisdom to lead well</em>. It felt right.<br><br>
+        Thank you for this offsite and for the kind of leadership that travels well — across cultures, across countries, and across the distance between a global team and a local one.
+      </p>
+    </div>
+    <div class="gift-card-reveal" id="giftReveal">
+      <span class="gift-emoji-big">🧣✨</span>
+      <p class="gift-sublabel">Your gift from Buriram, Thailand</p>
+      <p class="gift-main-title">Hand-woven Mudmee Silk Scarf<br>+ Karmakamet Scented Sachet</p>
+      <p class="gift-desc">Natural silk · elephant motif · hand-woven on wooden loom<br>Naturally dyed with plant-based pigments · from Buriram Province<br><br>Paired with a Karmakamet scented sachet — a little sanctuary of Thai botanicals to carry with you.</p>
+      <span class="gift-badge">🇹🇭 Buriram · Hand-woven · Natural dye</span>
+    </div>
+  </div>
+  <p class="sig" id="sig">— with gratitude, Pawitra &amp; the Syngenta Thailand Team 🌿</p>
+</div>
+<script>
+// ── SHARED AUDIO ENGINE ──────────────────────────────────────────
+// Each "voice" is defined by: scale (Hz), pad type, bell intervals, and timbre
+// Call: AudioEngine.start(voiceKey) / AudioEngine.stop()
+
+const AudioEngine = (() => {
+  let ctx = null, masterGain = null, nodes = [], bellTimer = null, playing = false;
+
+  const VOICES = {
+    // 🌸🫧 Karmakamet — high pentatonic, delicate, spa
+    spa: {
+      padFreqs: [261.6, 329.6, 392, 493.9, 587.3, 659.3],
+      padType: 'sine',
+      padGain: 0.032,
+      padDetune: 4,
+      lfoRate: 0.07,
+      filterFreq: 900,
+      bellFreqs: [783.9, 1046.5, 1174.7, 1318.5, 1567.9],
+      bellGain: 0.05,
+      bellDecay: 3.2,
+      bellInterval: [2800, 1800],
+    },
+    // 🐘 Elephant — low drone, slow, majestic
+    elephant: {
+      padFreqs: [98, 130.8, 146.8, 196, 220, 261.6],
+      padType: 'triangle',
+      padGain: 0.045,
+      padDetune: 6,
+      lfoRate: 0.04,
+      filterFreq: 420,
+      bellFreqs: [261.6, 329.6, 392, 220],
+      bellGain: 0.07,
+      bellDecay: 4.5,
+      bellInterval: [4500, 3000],
+    },
+    // 🔑💠 Indigo / Isan — khaen-like pentatonic, NE Thailand flavour
+    isan: {
+      padFreqs: [220, 247, 293.7, 370, 415, 440],
+      padType: 'sawtooth', // brighter, reed-like
+      padGain: 0.022,
+      padDetune: 3,
+      lfoRate: 0.11,
+      filterFreq: 700,
+      bellFreqs: [440, 493.9, 587.3, 659.3, 740],
+      bellGain: 0.055,
+      bellDecay: 1.8,
+      bellInterval: [1800, 1200],
+    },
+    // 👑 Shannon — Thai classical, warm, feminine high register
+    shannon: {
+      padFreqs: [293.7, 370, 440, 554.4, 659.3, 740],
+      padType: 'sine',
+      padGain: 0.03,
+      padDetune: 3,
+      lfoRate: 0.06,
+      filterFreq: 1100,
+      bellFreqs: [880, 1108.7, 1318.5, 1480, 1760],
+      bellGain: 0.048,
+      bellDecay: 3.8,
+      bellInterval: [2400, 1600],
+    },
+    // 👑 Marco — deep forest, bass-forward, mysterious
+    marco: {
+      padFreqs: [65.4, 87.3, 98, 130.8, 164.8, 196],
+      padType: 'triangle',
+      padGain: 0.05,
+      padDetune: 7,
+      lfoRate: 0.035,
+      filterFreq: 340,
+      bellFreqs: [196, 261.6, 329.6, 392, 246.9],
+      bellGain: 0.065,
+      bellDecay: 5.5,
+      bellInterval: [5500, 3500],
+    },
+  };
+
+  function init() {
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = ctx.createGain();
+    masterGain.gain.setValueAtTime(0, ctx.currentTime);
+    masterGain.connect(ctx.destination);
+  }
+
+  function buildPads(v) {
+    v.padFreqs.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      osc.type = v.padType;
+      osc.frequency.value = freq;
+      osc.detune.value = (Math.random() - 0.5) * v.padDetune * 2;
+
+      gain.gain.value = v.padGain * (0.7 + Math.random() * 0.6);
+      filter.type = 'lowpass';
+      filter.frequency.value = v.filterFreq + i * 40;
+      filter.Q.value = v.padType === 'sawtooth' ? 3.5 : 0.6;
+
+      const lfo = ctx.createOscillator();
+      const lfoGain = ctx.createGain();
+      lfo.frequency.value = v.lfoRate + Math.random() * 0.04;
+      lfoGain.gain.value = v.padGain * 0.35;
+      lfo.connect(lfoGain);
+      lfoGain.connect(gain.gain);
+      lfo.start();
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(masterGain);
+      osc.start();
+
+      nodes.push(osc, lfo);
+    });
+  }
+
+  function scheduleBell(v) {
+    if (!playing) return;
+    const freq = v.bellFreqs[Math.floor(Math.random() * v.bellFreqs.length)];
+    const osc = ctx.createOscillator();
+    const env = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    filter.type = 'bandpass';
+    filter.frequency.value = freq;
+    filter.Q.value = v.padType === 'sawtooth' ? 6 : 2;
+
+    env.gain.setValueAtTime(0, ctx.currentTime);
+    env.gain.linearRampToValueAtTime(v.bellGain, ctx.currentTime + 0.012);
+    env.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + v.bellDecay);
+
+    osc.connect(filter);
+    filter.connect(env);
+    env.connect(masterGain);
+    osc.start();
+    osc.stop(ctx.currentTime + v.bellDecay + 0.1);
+
+    spawnNote();
+
+    const next = v.bellInterval[1] + Math.random() * (v.bellInterval[0] - v.bellInterval[1]);
+    bellTimer = setTimeout(() => scheduleBell(v), next);
+  }
+
+  function spawnNote() {
+    const el = document.createElement('div');
+    el.className = 'music-float';
+    el.textContent = ['♪', '♫', '♩', '🎵'][Math.floor(Math.random() * 4)];
+    el.style.left = (65 + Math.random() * 20) + 'vw';
+    el.style.bottom = '58px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3100);
+  }
+
+  return {
+    start(voiceKey) {
+      init();
+      if (ctx.state === 'suspended') ctx.resume();
+      const v = VOICES[voiceKey] || VOICES.spa;
+      playing = true;
+      buildPads(v);
+      masterGain.gain.setValueAtTime(0, ctx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0.9, ctx.currentTime + 2.5);
+      scheduleBell(v);
+    },
+    stop() {
+      if (!ctx) return;
+      playing = false;
+      clearTimeout(bellTimer);
+      masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.8);
+      setTimeout(() => {
+        nodes.forEach(n => { try { n.stop(); } catch(e){} });
+        nodes = [];
+        ctx.suspend();
+      }, 2000);
+    },
+    isPlaying() { return playing; }
+  };
+})();
+function toggleMusic(){
+  const btn=document.getElementById('musicBtn');
+  if(AudioEngine.isPlaying()){AudioEngine.stop();btn.textContent='🎵';btn.classList.remove('playing');}
+  else{AudioEngine.start('marco');btn.textContent='🎶';btn.classList.add('playing');}
+}
+function reveal(){
+  const btn=document.getElementById('revealBtn');
+  btn.style.transition='all .3s';btn.style.transform='scale(.93)';
+  setTimeout(()=>btn.style.display='none',300);
+  setTimeout(()=>{AudioEngine.start('marco');document.getElementById('musicBtn').textContent='🎶';document.getElementById('musicBtn').classList.add('playing');},400);
+  setTimeout(()=>document.getElementById('letter').className='letter-card shown',360);
+  setTimeout(()=>document.getElementById('giftReveal').className='gift-card-reveal shown',750);
+  setTimeout(()=>{document.getElementById('sig').className='sig shown';fireConfetti();},1150);
+}
+function fireConfetti(){
+  const colors=['#c9a84c','#e8d5a0','#a8c5a0','#7a9e7e','#1e2d40','#4a7a9b','#fff'];
+  for(let i=0;i<70;i++){
+    const p=document.createElement('div');p.className='confetti-piece';
+    p.style.setProperty('--dur',(1.5+Math.random()*1.7)+'s');p.style.setProperty('--delay',(Math.random()*.9)+'s');
+    p.style.setProperty('--top','-20px');p.style.setProperty('--left',(6+Math.random()*88)+'%');
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.width=(5+Math.random()*7)+'px';p.style.height=(5+Math.random()*11)+'px';
+    p.style.borderRadius=Math.random()>.5?'50%':'2px';
+    document.body.appendChild(p);setTimeout(()=>p.remove(),3700);
+  }
+}
+</script>
+</body>
+</html>
